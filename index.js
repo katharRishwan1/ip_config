@@ -20,5 +20,21 @@ app.get('/api/ip', (req, res) => {
 
   res.json({ ip: address });
 });
+app.get('/ip',(request, res) => {
+    const ip = request.headers['cf-connecting-ip'] ||  
+    request.headers['x-real-ip'] ||
+    request.headers['x-forwarded-for'] ||
+    request.socket.remoteAddress || '45';
+    console.log('request.headers[cf-connecting-ip]-------',request.headers['cf-connecting-ip']);
+    console.log('x-real-ip-------',request.headers['x-real-ip']);
+    console.log('x-forwarded-for-------',request.headers['x-forwarded-for']);
+    console.log('request.socket.remoteAddress-------',request.socket.remoteAddress);
+
+    
+    return res.json({
+        msg:'its working',
+        output:ip
+    })
+})
 
 app.listen(5300, () => console.log('Server running on port 5300'));
