@@ -29,11 +29,17 @@ app.get('/ip',(request, res) => {
     console.log('x-real-ip-------',request.headers['x-real-ip']);
     console.log('x-forwarded-for-------',request.headers['x-forwarded-for']);
     console.log('request.socket.remoteAddress-------',request.socket.remoteAddress);
-
+    const ips = {
+        xreal : request.headers['cf-connecting-ip'],
+        xReal: request.headers['x-real-ip'],
+        xForward :request.headers['x-forwarded-for'],
+        socket:request.socket.remoteAddress
+    }
     
     return res.json({
         msg:'its working',
-        output:ip
+        output:ip,
+        ips
     })
 })
 
